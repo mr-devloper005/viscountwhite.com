@@ -245,14 +245,14 @@ export function ArticleComments({ slug }: { slug: string }) {
 
   return (
     <section className="mt-12" id="comments">
-      <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+      <div className="flex items-center gap-2 text-sm font-semibold text-white">
         <MessageSquare className="h-4 w-4" />
         Comments
       </div>
 
-      <form onSubmit={handleSubmit} className="mt-6 rounded-2xl border border-border bg-white p-5 shadow-sm">
+      <form onSubmit={handleSubmit} className="mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-[0_18px_50px_rgba(0,0,0,0.35)]">
         <div className="space-y-2">
-          <label htmlFor="comment-body" className="text-sm font-medium text-foreground">
+          <label htmlFor="comment-body" className="text-sm font-medium text-white">
             Add a comment
           </label>
           <Textarea
@@ -260,7 +260,7 @@ export function ArticleComments({ slug }: { slug: string }) {
             value={commentBody}
             onChange={(event) => setCommentBody(event.target.value)}
             placeholder="Write your comment here"
-            className="min-h-28"
+            className="min-h-28 border-white/10 bg-black/25 text-white placeholder:text-white/45"
             maxLength={2000}
             disabled={limitReached}
           />
@@ -280,13 +280,13 @@ export function ArticleComments({ slug }: { slug: string }) {
                 ? `Daily limit reached: ${DAILY_COMMENT_LIMIT}/${DAILY_COMMENT_LIMIT}`
                 : `${remainingToday} of ${DAILY_COMMENT_LIMIT} comments left today`}
             </div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-white/65">
               {limitReached
                 ? `You can publish again after ${resetLabel}.`
                 : `Limit resets after ${resetLabel}.`}
             </p>
           </div>
-          <Button type="submit" disabled={limitReached}>
+          <Button type="submit" className="bg-[#8d46ff] text-white hover:bg-[#9f63ff]" disabled={limitReached}>
             Publish Comment
           </Button>
         </div>
@@ -302,22 +302,22 @@ export function ArticleComments({ slug }: { slug: string }) {
                 key={comment.id}
                 id={`comment-${comment.id}`}
                 className={`rounded-2xl border p-4 ${
-                  isHighlighted ? "border-primary/50 bg-primary/5" : "border-border bg-white"
+                  isHighlighted ? "border-[#8d46ff]/60 bg-[#8d46ff]/12" : "border-white/10 bg-[#101220]"
                 }`}
               >
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-sm font-semibold text-foreground">{comment.authorName}</p>
+                    <p className="text-sm font-semibold text-white">{comment.authorName}</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-xs text-white/65">
                       {new Date(comment.createdAt).toLocaleDateString()}
                     </p>
                     {comment.source === "local" ? (
                       <button
                         type="button"
                         onClick={() => handleDeleteLocalComment(comment.id)}
-                        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted-foreground transition hover:border-destructive/30 hover:bg-destructive/5 hover:text-destructive"
+                        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/15 text-white/70 transition hover:border-[#8d46ff]/40 hover:bg-[#8d46ff]/10 hover:text-[#bb91ff]"
                         aria-label="Delete local comment"
                       >
                         <Trash2 className="h-4 w-4" />
@@ -327,20 +327,20 @@ export function ArticleComments({ slug }: { slug: string }) {
                 </div>
                 <RichContent
                   html={formatRichHtml(comment.body, "Comment added.")}
-                  className="mt-2 text-sm text-muted-foreground prose-sm prose-h2:text-xl prose-h3:text-lg"
+                  className="mt-2 text-sm text-white/80 prose-sm prose-h2:text-xl prose-h3:text-lg prose-p:text-white/82 prose-a:text-[#bb91ff]"
                 />
               </div>
             );
           })}
         </div>
       ) : (
-        <div className="mt-6 rounded-2xl border border-dashed border-border p-6 text-center text-sm text-muted-foreground">
+        <div className="mt-6 rounded-2xl border border-dashed border-white/20 p-6 text-center text-sm text-white/65">
           No comments yet.
         </div>
       )}
 
       {totalPages > 1 ? (
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 text-sm text-muted-foreground">
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 text-sm text-white/65">
           <span>
             Page {safePage} of {totalPages}
           </span>
@@ -349,7 +349,7 @@ export function ArticleComments({ slug }: { slug: string }) {
               type="button"
               onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
               disabled={safePage === 1}
-              className="rounded-full border border-border px-3 py-1.5 text-xs font-semibold text-foreground disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-full border border-white/20 px-3 py-1.5 text-xs font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"
             >
               Previous
             </button>
@@ -357,7 +357,7 @@ export function ArticleComments({ slug }: { slug: string }) {
               type="button"
               onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
               disabled={safePage === totalPages}
-              className="rounded-full border border-border px-3 py-1.5 text-xs font-semibold text-foreground disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-full border border-white/20 px-3 py-1.5 text-xs font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"
             >
               Next
             </button>

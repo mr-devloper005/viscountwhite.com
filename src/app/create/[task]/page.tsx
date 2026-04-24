@@ -182,11 +182,11 @@ export default function CreateTaskPage() {
 
   if (!taskConfig || !formConfig) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-[#05060c] text-white">
         <NavbarShell />
         <main className="mx-auto max-w-3xl px-4 py-16 text-center">
-          <h1 className="text-2xl font-semibold text-foreground">Task not available</h1>
-          <p className="mt-2 text-muted-foreground">
+          <h1 className="text-2xl font-semibold">Task not available</h1>
+          <p className="mt-2 text-white/70">
             This task is not enabled for the current site.
           </p>
           <Button className="mt-6" asChild>
@@ -271,9 +271,9 @@ export default function CreateTaskPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#05060c] text-white">
       <NavbarShell />
-      <main className="mx-auto max-w-4xl px-4 py-12">
+      <main className="mx-auto max-w-4xl px-4 py-24">
         <div className="mb-8 flex items-center gap-3">
           <Button variant="ghost" size="icon" asChild>
             <Link href="/">
@@ -281,15 +281,15 @@ export default function CreateTaskPage() {
             </Link>
           </Button>
           <div>
-            <h1 className="text-2xl font-semibold text-foreground">{formConfig.title}</h1>
-            <p className="text-sm text-muted-foreground">{formConfig.description}</p>
+            <h1 className="text-2xl font-semibold">{formConfig.title}</h1>
+            <p className="text-sm text-white/70">{formConfig.description}</p>
           </div>
         </div>
 
-        <div className="rounded-3xl border border-border bg-card p-8 shadow-sm">
+        <div className="rounded-3xl border border-white/10 bg-[#101220] p-8 shadow-[0_24px_72px_rgba(0,0,0,0.45)]">
           <div className="flex flex-wrap gap-2">
-            <Badge variant="secondary">{taskConfig.label}</Badge>
-            <Badge variant="outline">Local-only</Badge>
+            <Badge className="border border-white/10 bg-white/10 text-white" variant="secondary">{taskConfig.label}</Badge>
+            <Badge className="border border-white/15 bg-black/30 text-white/80" variant="outline">Local-only</Badge>
           </div>
 
           <div className="mt-6 grid gap-6">
@@ -304,13 +304,13 @@ export default function CreateTaskPage() {
                     placeholder={field.placeholder}
                     value={values[field.key] || ""}
                     onChange={(event) => updateValue(field.key, event.target.value)}
-                    className="border-2 border-slate-200 bg-white focus-visible:ring-2 focus-visible:ring-primary/30"
+                    className="border border-white/10 bg-black/30 text-white placeholder:text-white/45 focus-visible:ring-2 focus-visible:ring-[#8d46ff]/40"
                   />
                 ) : field.type === "category" ? (
                   <select
                     value={values[field.key] || ""}
                     onChange={(event) => updateValue(field.key, event.target.value)}
-                    className="h-11 rounded-lg border-2 border-slate-200 bg-white px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                    className="h-11 rounded-lg border border-white/10 bg-black/30 px-3 text-sm text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8d46ff]/40"
                   >
                     <option value="">Select category</option>
                     {CATEGORY_OPTIONS.map((option) => (
@@ -353,9 +353,10 @@ export default function CreateTaskPage() {
                       placeholder="Or paste a PDF URL"
                       value={values[field.key] || ""}
                       onChange={(event) => updateValue(field.key, event.target.value)}
+                      className="border border-white/10 bg-black/30 text-white placeholder:text-white/45"
                     />
                     {uploadingPdf ? (
-                      <p className="text-xs text-muted-foreground">Uploading PDF…</p>
+                      <p className="text-xs text-white/65">Uploading PDF...</p>
                     ) : null}
                   </div>
                 ) : (
@@ -368,7 +369,7 @@ export default function CreateTaskPage() {
                     }
                     value={values[field.key] || ""}
                     onChange={(event) => updateValue(field.key, event.target.value)}
-                    className="h-11 border-2 border-slate-200 bg-white focus-visible:ring-2 focus-visible:ring-primary/30"
+                    className="h-11 border border-white/10 bg-black/30 text-white placeholder:text-white/45 focus-visible:ring-2 focus-visible:ring-[#8d46ff]/40"
                   />
                 )}
               </div>
@@ -376,11 +377,11 @@ export default function CreateTaskPage() {
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button onClick={handleSubmit}>
+            <Button className="bg-[#8d46ff] text-white hover:bg-[#9f63ff]" onClick={handleSubmit}>
               <Save className="mr-2 h-4 w-4" />
               Save locally
             </Button>
-            <Button variant="ghost" asChild>
+            <Button variant="ghost" className="border border-white/15 bg-white/5 text-white hover:bg-white/10" asChild>
               <Link href={taskConfig.route}>
                 View {taskConfig.label}
                 <Plus className="ml-2 h-4 w-4" />
@@ -392,3 +393,4 @@ export default function CreateTaskPage() {
     </div>
   );
 }
+
