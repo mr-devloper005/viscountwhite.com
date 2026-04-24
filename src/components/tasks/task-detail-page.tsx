@@ -123,6 +123,12 @@ const buildMapEmbedUrl = (
   return null;
 };
 
+const estimateReadingMinutes = (html: string) => {
+  const text = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  const words = text ? text.split(" ").length : 0;
+  return Math.max(1, Math.round(words / 220));
+};
+
 export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: string }) {
   if (TASK_DETAIL_PAGE_OVERRIDE_ENABLED) {
     return await TaskDetailPageOverride({ task, slug });
@@ -224,6 +230,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
     ],
   };
   const schemaPayload = articleSchema ? [articleSchema, breadcrumbSchema] : breadcrumbSchema;
+  const readingMinutes = isArticle ? estimateReadingMinutes(articleHtml) : 0;
   const { recipe } = getFactoryState();
   const productKind = getProductKind(recipe);
 
@@ -248,15 +255,15 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#05060c] text-white">
       <NavbarShell />
-      <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <SchemaJsonLd data={schemaPayload} />
         <Link
           href={taskConfig?.route || "/"}
-          className="mb-6 inline-flex items-center text-sm text-muted-foreground hover:text-foreground"
+          className="mb-6 inline-flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-2 text-sm font-semibold text-white/85 hover:bg-white/10 hover:text-white"
         >
-          ← Back to {taskConfig?.label || "posts"}
+          Back to {taskConfig?.label || "posts"}
         </Link>
 
         <div
@@ -267,14 +274,15 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
         >
           <div className={cn(isClassified ? "space-y-8" : "")}>
             {isArticle ? (
-              <div className="mx-auto w-full max-w-4xl space-y-6">
-                <h1 className="text-4xl font-semibold leading-tight text-foreground">
+              <div className="mx-auto w-full max-w-4xl space-y-7 rounded-[2.2rem] border border-white/10 bg-[#101220] p-6 shadow-[0_24px_72px_rgba(0,0,0,0.45)] md:p-9">
+                <h1 className="text-4xl font-semibold leading-tight text-white">
                   {post.title}
                 </h1>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-white/85">
                   <span>By {articleAuthor}</span>
                   {articleDate ? <span>{articleDate}</span> : null}
-                  <Badge variant="secondary" className="inline-flex items-center gap-1">
+                  <span>{readingMinutes} min read</span>
+                  <Badge variant="secondary" className="inline-flex items-center gap-1 border border-white/15 bg-white/10 text-white">
                     <Tag className="h-3.5 w-3.5" />
                     {category}
                   </Badge>
@@ -282,17 +290,17 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
                 {postTags.length ? (
                   <div className="flex flex-wrap gap-2">
                     {postTags.map((tag) => (
-                      <Badge key={tag} variant="outline">
+                      <Badge key={tag} variant="outline" className="border-white/15 bg-black/20 text-white/80">
                         {tag}
                       </Badge>
                     ))}
                   </div>
                 ) : null}
                 {articleSummary ? (
-                  <p className="text-base leading-7 text-muted-foreground">{articleSummary}</p>
+                  <p className="text-base leading-7 text-white/90">{articleSummary}</p>
                 ) : null}
                 {images[0] ? (
-                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border border-border bg-muted">
+                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border border-white/10 bg-black/25">
                     <ContentImage
                       src={images[0]}
                       alt={`${post.title} featured image`}
@@ -303,7 +311,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
                     />
                   </div>
                 ) : null}
-                <RichContent html={articleHtml} className="leading-8 prose-p:my-6 prose-h2:my-8 prose-h3:my-6 prose-ul:my-6" />
+                <RichContent html={articleHtml} className="leading-8 prose-p:my-6 prose-h2:my-8 prose-h3:my-6 prose-ul:my-6 prose-headings:text-white prose-p:text-white/90 prose-a:text-[#bb91ff]" />
                 <ArticleComments slug={post.slug} />
               </div>
             ) : null}
@@ -479,13 +487,13 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
           {related.length ? (
             <>
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-foreground">
+              <h2 className={cn("text-xl font-semibold", isArticle ? "text-white" : "text-foreground")}>
                 More in {category}
               </h2>
               {taskConfig?.route && (
                 <Link
                   href={taskConfig.route}
-                  className="text-sm text-muted-foreground hover:text-foreground"
+                  className={cn("text-sm", isArticle ? "text-white/70 hover:text-white" : "text-muted-foreground hover:text-foreground")}
                 >
                   View all
                 </Link>
@@ -502,14 +510,14 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
             </div>
             </>
           ) : null}
-          <nav className="mt-6 rounded-2xl border border-border bg-card/60 p-4">
-            <p className="text-sm font-semibold text-foreground">Related links</p>
+          <nav className={cn("mt-6 rounded-2xl p-4", isArticle ? "border border-white/10 bg-white/[0.04]" : "border border-border bg-card/60")}>
+            <p className={cn("text-sm font-semibold", isArticle ? "text-white" : "text-foreground")}>Related links</p>
             <ul className="mt-2 space-y-2 text-sm">
               {related.map((item) => (
                 <li key={`link-${item.id}`}>
                   <Link
                     href={buildPostUrl(task, item.slug)}
-                    className="text-primary underline-offset-4 hover:underline"
+                    className={cn("underline-offset-4 hover:underline", isArticle ? "text-[#bb91ff]" : "text-primary")}
                   >
                     {item.title}
                   </Link>
@@ -519,7 +527,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
                 <li>
                   <Link
                     href={taskConfig.route}
-                    className="text-primary underline-offset-4 hover:underline"
+                    className={cn("underline-offset-4 hover:underline", isArticle ? "text-[#bb91ff]" : "text-primary")}
                   >
                     Browse all {taskConfig.label}
                   </Link>
@@ -528,7 +536,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
               <li>
                 <Link
                   href={`/search?q=${encodeURIComponent(category)}`}
-                  className="text-primary underline-offset-4 hover:underline"
+                  className={cn("underline-offset-4 hover:underline", isArticle ? "text-[#bb91ff]" : "text-primary")}
                 >
                   Search more in {category}
                 </Link>
@@ -541,3 +549,4 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
     </div>
   );
 }
+
