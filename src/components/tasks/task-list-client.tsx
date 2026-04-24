@@ -60,6 +60,32 @@ export function TaskListClient({ task, initialPosts, category }: Props) {
     );
   }
 
+  if (task === "article") {
+    return (
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+        {merged.map((post, index) => {
+          const localOnly = (post as any).localOnly;
+          const href = localOnly
+            ? `/local/${task}/${post.slug}`
+            : buildPostUrl(task, post.slug);
+          const layoutClass =
+            index === 0
+              ? "lg:col-span-7"
+              : index === 1
+                ? "lg:col-span-5"
+                : index % 5 === 0
+                  ? "lg:col-span-6"
+                  : "lg:col-span-4";
+          return (
+            <div key={post.id} className={layoutClass}>
+              <TaskPostCard post={post} href={href} taskKey={task} />
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {merged.map((post) => {

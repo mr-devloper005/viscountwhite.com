@@ -106,6 +106,7 @@ export function TaskPostCard({
   const variant = taskKey || 'listing'
   const visualVariant = cardStyles[getVariantForTask(variant)]
   const isBookmarkVariant = variant === 'sbm' || variant === 'social'
+  const isArticleVariant = variant === 'article'
   const imageAspect = variant === 'image' ? 'aspect-[4/5]' : variant === 'article' ? 'aspect-[16/10]' : variant === 'pdf' ? 'aspect-[4/5]' : variant === 'classified' ? 'aspect-[16/11]' : 'aspect-[4/3]'
   const altText = `${post.title} ${category} ${variant === 'listing' ? 'business listing' : variant} image`
   const imageSizes = variant === 'article' ? '(max-width: 640px) 90vw, (max-width: 1024px) 48vw, 420px' : variant === 'image' ? '(max-width: 640px) 82vw, (max-width: 1024px) 34vw, 320px' : '(max-width: 640px) 85vw, (max-width: 1024px) 42vw, 340px'
@@ -178,6 +179,26 @@ export function TaskPostCard({
           <h3 className={`mt-3 line-clamp-2 text-lg font-semibold leading-snug group-hover:opacity-85 ${visualVariant.title}`}>{post.title}</h3>
           <p className={`mt-2 line-clamp-3 text-sm leading-7 ${visualVariant.muted}`}>{getExcerpt(content.description || post.summary, compact ? 120 : 180) || 'Explore this bookmark.'}</p>
           {content.email ? <div className={`mt-3 inline-flex items-center gap-1 text-xs ${visualVariant.muted}`}><Mail className="h-3.5 w-3.5" />{content.email}</div> : null}
+        </div>
+      </Link>
+    )
+  }
+
+  if (isArticleVariant) {
+    return (
+      <Link href={href} className="group flex h-full flex-col overflow-hidden rounded-[1.9rem] border border-white/10 bg-[#101220] shadow-[0_20px_60px_rgba(0,0,0,0.38)] transition duration-300 hover:-translate-y-1 hover:border-[#8d46ff]/55 hover:shadow-[0_28px_76px_rgba(0,0,0,0.52)]">
+        <div className={`relative ${imageAspect} overflow-hidden bg-black/40`}>
+          <ContentImage src={image} alt={altText} fill sizes={imageSizes} quality={75} className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" intrinsicWidth={960} intrinsicHeight={720} />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#070912] via-[#070912]/25 to-transparent" />
+          <span className="absolute left-4 top-4 inline-flex items-center gap-1 rounded-full border border-white/20 bg-black/35 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#bb91ff]">
+            <Tag className="h-3.5 w-3.5" />
+            {category}
+          </span>
+        </div>
+        <div className={`flex flex-1 flex-col p-5 ${compact ? 'py-4' : ''}`}>
+          <h3 className="line-clamp-2 text-[1.32rem] font-semibold leading-snug text-white">{post.title}</h3>
+          <p className="mt-3 line-clamp-4 text-sm leading-7 text-white/75">{getExcerpt(content.description || post.summary, compact ? 132 : 190) || 'Explore this article.'}</p>
+          <div className="mt-auto pt-4 text-xs text-white/60">Read story</div>
         </div>
       </Link>
     )

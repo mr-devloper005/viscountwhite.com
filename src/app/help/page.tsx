@@ -1,52 +1,62 @@
-﻿import Link from 'next/link'
-import { PageShell } from '@/components/shared/page-shell'
-import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { mockFaqs } from '@/data/mock-data'
+import Link from 'next/link'
+import { LifeBuoy, MessageCircle, Rocket } from 'lucide-react'
+import { NavbarShell } from '@/components/shared/navbar-shell'
+import { Footer } from '@/components/shared/footer'
 
-const topics = [
-  { title: 'Getting Started', description: 'Create your account and publish your first post.' },
-  { title: 'Bookmarks & Collections', description: 'Save links, organize folders, and share collections.' },
-  { title: 'Listings & Ads', description: 'Manage your business listings and classifieds.' },
+const supportBlocks = [
+  {
+    title: 'Getting Started',
+    description: 'Set up your account, publish your first article, and create a clean homepage flow.',
+    icon: Rocket,
+  },
+  {
+    title: 'Publishing Guidance',
+    description: 'Structure headlines, summaries, and reading sections for better engagement.',
+    icon: MessageCircle,
+  },
+  {
+    title: 'Technical Help',
+    description: 'Troubleshoot account access, local draft behavior, and publishing UI issues.',
+    icon: LifeBuoy,
+  },
 ]
 
 export default function HelpPage() {
   return (
-    <PageShell
-      title="Help Center"
-      description="Find answers, guides, and best practices."
-      actions={
-        <Button asChild>
-          <Link href="/contact">Contact Support</Link>
-        </Button>
-      }
-    >
-      <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-        <div className="grid gap-6 md:grid-cols-2">
-          {topics.map((topic) => (
-            <Card key={topic.title} className="border-border bg-card transition-transform hover:-translate-y-1">
-              <CardContent className="p-6">
-                <h2 className="text-lg font-semibold text-foreground">{topic.title}</h2>
-                <p className="mt-2 text-sm text-muted-foreground">{topic.description}</p>
-              </CardContent>
-            </Card>
+    <div className="min-h-screen bg-[#05060c] text-white">
+      <NavbarShell />
+      <main className="px-4 pb-16 pt-28 sm:px-6 lg:px-8 lg:pt-32">
+        <section className="mx-auto max-w-6xl">
+          <p className="inline-flex rounded-full border border-white/20 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#bb91ff]">
+            Support
+          </p>
+          <h1 className="mt-5 max-w-4xl text-5xl font-semibold tracking-[-0.05em] sm:text-6xl">
+            Help built for editorial teams that ship fast.
+          </h1>
+          <p className="mt-6 max-w-2xl text-base leading-8 text-white/75">
+            Find practical support for article creation, publishing workflows, and reader-facing layout best practices.
+          </p>
+        </section>
+
+        <section className="mx-auto mt-14 grid max-w-6xl gap-4 md:grid-cols-3">
+          {supportBlocks.map((block) => (
+            <article key={block.title} className="rounded-3xl border border-white/10 bg-white/[0.04] p-6">
+              <block.icon className="h-5 w-5 text-[#bb91ff]" />
+              <h2 className="mt-4 text-2xl font-semibold tracking-[-0.03em]">{block.title}</h2>
+              <p className="mt-3 text-sm leading-7 text-white/70">{block.description}</p>
+            </article>
           ))}
-        </div>
-        <Card className="border-border bg-card">
-          <CardContent className="p-6">
-            <h3 className="text-lg font-semibold text-foreground">FAQ</h3>
-            <Accordion type="single" collapsible className="mt-4">
-              {mockFaqs.map((faq) => (
-                <AccordionItem key={faq.id} value={faq.id}>
-                  <AccordionTrigger>{faq.question}</AccordionTrigger>
-                  <AccordionContent>{faq.answer}</AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </CardContent>
-        </Card>
-      </div>
-    </PageShell>
+        </section>
+
+        <section className="mx-auto mt-10 max-w-6xl rounded-3xl border border-white/10 bg-[#111321] p-7">
+          <h3 className="text-2xl font-semibold tracking-[-0.03em]">Still need help?</h3>
+          <p className="mt-3 text-sm text-white/70">Our support desk responds with product-specific guidance for your article workflow.</p>
+          <Link href="/contact" className="mt-5 inline-flex rounded-full bg-[#8d46ff] px-6 py-3 text-sm font-semibold text-white hover:bg-[#9f63ff]">
+            Contact Support
+          </Link>
+        </section>
+      </main>
+      <Footer />
+    </div>
   )
 }

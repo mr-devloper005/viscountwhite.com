@@ -95,7 +95,7 @@ export function NavbarAuthControls() {
               <span className="text-xs text-[#7f646b]">1 hour ago</span>
             </DropdownMenuItem>
             <DropdownMenuItem className="flex flex-col items-start gap-1 p-3">
-              <span className="text-sm">Your listing is expiring soon</span>
+              <span className="text-sm">A reader bookmarked your latest feature</span>
               <span className="text-xs text-[#7f646b]">3 hours ago</span>
             </DropdownMenuItem>
           </div>
