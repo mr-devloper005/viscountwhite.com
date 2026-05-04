@@ -131,7 +131,7 @@ const estimateReadingMinutes = (html: string) => {
 
 export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: string }) {
   if (TASK_DETAIL_PAGE_OVERRIDE_ENABLED) {
-    return await TaskDetailPageOverride({ task, slug });
+    return <TaskDetailPageOverride task={task} slug={slug} />;
   }
 
   const taskConfig = getTaskConfig(task);
