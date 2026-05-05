@@ -36,9 +36,6 @@ export function NavbarOverride() {
           )}
         </div>
         <div className="flex items-center gap-2">
-          <Link href={isAuthenticated ? '/articles' : '/register'} className="hidden rounded-full bg-[#8d46ff] px-5 py-2 text-xs font-semibold text-white hover:bg-[#9f63ff] md:inline-flex">
-            Start Free Trial
-          </Link>
           <button
             type="button"
             className="inline-flex h-9 w-9 items-center justify-center rounded-full text-[#2b2e3e] hover:bg-white md:hidden"
@@ -57,9 +54,6 @@ export function NavbarOverride() {
                 {link.label}
               </Link>
             ))}
-            <Link href={isAuthenticated ? '/articles' : '/register'} onClick={() => setOpen(false)} className="block rounded-xl bg-[#8d46ff] px-3 py-2 text-center text-sm font-semibold text-white">
-              Start Free Trial
-            </Link>
           </div>
         </div>
       ) : null}
