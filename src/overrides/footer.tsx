@@ -25,7 +25,7 @@ export function FooterOverride() {
                 <img src="/favicon.png" alt={`${SITE_CONFIG.name} logo`} className="h-6 w-6 object-contain" />
                 <p className="text-xl font-semibold">{SITE_CONFIG.name}</p>
               </div>
-              <p className="mt-4 text-sm text-white/65">Copyright © 2026.</p>
+              <p className="mt-4 text-sm text-white/65">Copyright.</p>
             </div>
             <div className="space-y-2 text-sm text-white/80">
               <p className="font-semibold text-white">Product</p>
