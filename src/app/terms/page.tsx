@@ -30,7 +30,6 @@ export default function TermsPage() {
             Terms
           </p>
           <h1 className="mt-5 text-5xl font-semibold tracking-[-0.05em] sm:text-6xl">Terms of Service</h1>
-          <p className="mt-5 text-sm text-white/70">Last updated: April 24, 2026</p>
         </section>
 
         <section className="mx-auto mt-10 max-w-5xl space-y-4">
