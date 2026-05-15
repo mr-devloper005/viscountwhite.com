@@ -122,7 +122,7 @@ const FORM_CONFIG: Record<TaskKey, { title: string; description: string; fields:
     fields: [
       { key: "title", label: "Bookmark title", type: "text", required: true },
       { key: "summary", label: "Short summary", type: "textarea", required: true },
-      { key: "description", label: "Why it’s useful", type: "textarea" },
+      { key: "description", label: "Why itÃ¢â‚¬â„¢s useful", type: "textarea" },
       { key: "website", label: "Target URL", type: "url", required: true },
       { key: "category", label: "Category", type: "category" },
       { key: "tags", label: "Tags", type: "tags" },
@@ -288,9 +288,7 @@ export default function CreateTaskPage() {
 
         <div className="rounded-3xl border border-white/10 bg-[#101220] p-8 shadow-[0_24px_72px_rgba(0,0,0,0.45)]">
           <div className="flex flex-wrap gap-2">
-            <Badge className="border border-white/10 bg-white/10 text-white" variant="secondary">{taskConfig.label}</Badge>
-            <Badge className="border border-white/15 bg-black/30 text-white/80" variant="outline">Local-only</Badge>
-          </div>
+            <Badge className="border border-white/10 bg-white/10 text-white" variant="secondary">{taskConfig.label}</Badge>          </div>
 
           <div className="mt-6 grid gap-6">
             {formConfig.fields.map((field) => (
@@ -379,7 +377,7 @@ export default function CreateTaskPage() {
           <div className="mt-8 flex flex-wrap gap-3">
             <Button className="bg-[#8d46ff] text-white hover:bg-[#9f63ff]" onClick={handleSubmit}>
               <Save className="mr-2 h-4 w-4" />
-              Save locally
+              Save
             </Button>
             <Button variant="ghost" className="border border-white/15 bg-white/5 text-white hover:bg-white/10" asChild>
               <Link href={taskConfig.route}>

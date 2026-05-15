@@ -5,18 +5,18 @@ import { Footer } from '@/components/shared/footer'
 
 const pillars = [
   {
-    title: 'Editorial-First Experience',
-    body: 'Every layout is built to make articles readable, scannable, and memorable on both desktop and mobile.',
+    title: 'Reading-First Foundation',
+    body: 'Long-form stories stay easy to read with clean structure, calmer spacing, and strong typography across devices.',
     icon: PenLine,
   },
   {
-    title: 'Fast Publishing',
-    body: 'Writers can move from idea to published post in minutes, with minimal setup friction.',
+    title: 'Visual Discovery Flow',
+    body: 'Images, article covers, and connected sections help visitors discover more content naturally without getting lost.',
     icon: Sparkles,
   },
   {
-    title: 'Audience Growth Focus',
-    body: 'Clear information hierarchy and CTA placement help readers keep exploring your content.',
+    title: 'Connected Content System',
+    body: 'Articles, visuals, listings, and resources are linked through one navigation rhythm for smoother exploration.',
     icon: Lightbulb,
   },
 ]
@@ -28,13 +28,13 @@ export default function AboutPage() {
       <main className="px-4 pb-16 pt-28 sm:px-6 lg:px-8 lg:pt-32">
         <section className="mx-auto max-w-6xl">
           <p className="inline-flex rounded-full border border-white/20 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#bb91ff]">
-            Features
+            About
           </p>
           <h1 className="mt-5 max-w-4xl text-5xl font-semibold tracking-[-0.05em] sm:text-6xl">
-            Built for modern article teams, not generic content factories.
+            Built for stories, visuals, and discoverable content in one place.
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-8 text-white/75">
-            This platform is designed for editorial brands that care about writing quality, reader retention, and publishing speed.
+            Viscountwhite brings together reading-first publishing, visual browsing, and connected discovery so visitors can move naturally between content types.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/articles" className="inline-flex items-center gap-2 rounded-full bg-[#8d46ff] px-6 py-3 text-sm font-semibold text-white hover:bg-[#9f63ff]">

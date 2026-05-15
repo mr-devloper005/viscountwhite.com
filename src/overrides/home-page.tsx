@@ -24,7 +24,7 @@ export async function HomePageOverride() {
                 <Star key={index} className="h-4 w-4 fill-current" />
               ))}
             </div>
-            <p className="mx-auto max-w-xl text-sm text-white/70">“Finally, an article platform that just works.”</p>
+            <p className="mx-auto max-w-xl text-base leading-7 text-white/78">Finally, an article platform that just works.</p>
             <h1 className="mx-auto mt-7 max-w-4xl text-5xl font-semibold leading-[1.03] tracking-[-0.05em] sm:text-6xl lg:text-7xl">
               A publication that
               <span className="mx-2 inline-block bg-[#8d46ff] px-3 py-1 text-white">sells your</span>
@@ -51,9 +51,7 @@ export async function HomePageOverride() {
 
         <section className="rounded-t-[2rem] bg-[#e6e7eb] px-4 py-16 text-[#0d0f1b] sm:px-6 lg:px-8">
           <div className="mx-auto max-w-6xl">
-            <h2 className="text-center text-4xl font-semibold leading-tight tracking-[-0.04em] sm:text-5xl">
-              Over <span className="text-[#8d46ff]">2,000,000</span> readers and writers can’t be wrong.
-            </h2>
+            <p className="text-center text-2xl leading-relaxed text-[#111323] sm:text-3xl">Over <span className="font-semibold text-[#8d46ff]">2,000,000</span> readers and writers can't be wrong.</p>
             <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {gridPosts.map((post) => (
                 <Link key={post.id} href={`/articles/${post.slug}`} className="group overflow-hidden rounded-3xl border border-[#cfd2dc] bg-white">
@@ -70,18 +68,16 @@ export async function HomePageOverride() {
         </section>
 
         <section className="bg-[#e6e7eb] px-4 pb-16 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-4xl rounded-3xl border border-[#d6d9e2] bg-[#f2f3f7] p-8 text-center shadow-sm">
-            <h3 className="text-4xl font-semibold leading-tight tracking-[-0.04em] sm:text-5xl">
-              I didn’t expect building a publication could really feel this fun.
-            </h3>
-            <p className="mt-5 text-sm text-[#61667c]">Editorial Creator</p>
+          <div className="mx-auto max-w-4xl rounded-3xl border border-[#c8ccd8] bg-[#eceef5] p-8 text-center shadow-sm">
+            <p className="mx-auto max-w-3xl text-2xl leading-relaxed text-[#151928] sm:text-3xl">I didn't expect building a publication could really feel this fun.</p>
+            <p className="mt-5 text-sm text-[#4f556c]">Editorial Creator</p>
           </div>
         </section>
 
         <section className="bg-[#e6e7eb] px-4 pb-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-4xl">
             <h3 className="text-center text-5xl font-semibold leading-tight tracking-[-0.05em] text-[#111323]">
-              Five reasons to use
+              Four reasons to use
               <span className="ml-2 text-[#8d46ff]">this article platform.</span>
             </h3>
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
