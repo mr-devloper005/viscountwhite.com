@@ -47,9 +47,16 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
 
   const taskConfig = getTaskConfig(task)
   const posts = await fetchTaskPosts(task, 30)
-  const articleLead = task === 'article' ? posts[0] : null
-  const articleFeatureStrip = task === 'article' ? posts.slice(1, 4) : []
   const normalizedCategory = category ? normalizeCategory(category) : 'all'
+  const serverFilteredPosts = normalizedCategory === 'all'
+    ? posts
+    : posts.filter((post) => {
+        const content = post.content && typeof post.content === 'object' ? post.content : {}
+        const value = typeof (content as any).category === 'string' ? normalizeCategory((content as any).category) : ''
+        return value === normalizedCategory
+      })
+  const articleLead = task === 'article' ? serverFilteredPosts[0] : null
+  const articleFeatureStrip = task === 'article' ? serverFilteredPosts.slice(1, 4) : []
   const intro = taskIntroCopy[task]
   const baseUrl = SITE_CONFIG.baseUrl.replace(/\/$/, '')
   const schemaItems = posts.slice(0, 10).map((post, index) => ({
@@ -172,17 +179,25 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
               </p>
             </div>
             <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#bb91ff]">Reading filter</p>
-              <p className="mt-4 text-sm leading-7 text-white/70">Use topic filters to jump to relevant stories without noisy layout shifts.</p>
-              <form className="mt-5 flex items-center gap-3" action={taskConfig?.route || '#'}>
-                <select name="category" defaultValue={normalizedCategory} className="h-11 flex-1 rounded-xl border border-white/15 bg-black/25 px-3 text-sm text-white">
-                  <option value="all">All categories</option>
-                  {CATEGORY_OPTIONS.map((item) => (
-                    <option key={item.slug} value={item.slug}>{item.name}</option>
-                  ))}
-                </select>
-                <button type="submit" className="h-11 rounded-xl bg-[#8d46ff] px-4 text-sm font-medium text-white hover:bg-[#9f63ff]">Apply</button>
-              </form>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#bb91ff]">Category Filter</p>
+              <p className="mt-4 text-sm leading-7 text-white/70">Pick a category to filter the full article feed.</p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                <Link
+                  href={taskConfig?.route || '/articles'}
+                  className={`rounded-full px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] ${normalizedCategory === 'all' ? 'bg-[#8d46ff] text-white' : 'border border-white/15 text-white/80 hover:bg-white/10'}`}
+                >
+                  All
+                </Link>
+                {CATEGORY_OPTIONS.slice(0, 10).map((item) => (
+                  <Link
+                    key={item.slug}
+                    href={`${taskConfig?.route || '/articles'}?category=${item.slug}`}
+                    className={`rounded-full px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] ${normalizedCategory === item.slug ? 'bg-[#8d46ff] text-white' : 'border border-white/15 text-white/80 hover:bg-white/10'}`}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
             </div>
           </section>
         ) : null}
@@ -291,7 +306,7 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
               </div>
             </div>
           ) : null}
-          <TaskListClient task={task} initialPosts={posts} category={normalizedCategory} />
+          <TaskListClient task={task} initialPosts={serverFilteredPosts} category={normalizedCategory} />
         </section>
       </main>
       <Footer />
