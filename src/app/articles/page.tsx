@@ -1,8 +1,10 @@
 import { TaskListPage } from "@/components/tasks/task-list-page";
 import { buildTaskMetadata } from "@/lib/seo";
 import { taskPageMetadata } from "@/config/site.content";
+import { connection } from "next/server";
 
 export const revalidate = 3;
+export const dynamic = "force-dynamic";
 
 export const generateMetadata = () =>
   buildTaskMetadata("article", {
@@ -11,6 +13,12 @@ export const generateMetadata = () =>
     description: taskPageMetadata.article.description,
   });
 
-export default function ArticlesPage({ searchParams }: { searchParams?: { category?: string } }) {
-  return <TaskListPage task="article" category={searchParams?.category} />;
+export default async function ArticlesPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ category?: string; c?: string }>;
+}) {
+  await connection();
+  const params = await searchParams;
+  return <TaskListPage task="article" category={params?.category || params?.c} />;
 }

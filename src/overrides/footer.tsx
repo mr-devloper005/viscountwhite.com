@@ -13,8 +13,8 @@ export function FooterOverride() {
             <br />
             Time to <span className="bg-[#8d46ff] px-2">build.</span>
           </h3>
-          <Link href="/register" className="mt-6 inline-flex rounded-full bg-[#8d46ff] px-7 py-3 text-sm font-semibold text-white hover:bg-[#9f63ff]">
-            Open Your Publication
+          <Link href="/contact" className="mt-6 inline-flex rounded-full bg-[#8d46ff] px-7 py-3 text-sm font-semibold text-white hover:bg-[#9f63ff]">
+            Contact
           </Link>
         </div>
 
@@ -25,7 +25,6 @@ export function FooterOverride() {
                 <img src="/favicon.png" alt={`${SITE_CONFIG.name} logo`} className="h-6 w-6 object-contain" />
                 <p className="text-xl font-semibold">{SITE_CONFIG.name}</p>
               </div>
-              <p className="mt-4 text-sm text-white/65">Copyright.</p>
             </div>
             <div className="space-y-2 text-sm text-white/80">
               <p className="font-semibold text-white">Product</p>
